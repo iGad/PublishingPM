@@ -7,7 +7,7 @@
         $('#new-events').load(("@(Url.Action("ShowEvents", "Event", new { showAll = true }))"), {
             asd: Math.random() // что б IE не кешировал
         }, function () {
-            setTimeout(UpdateBlock, 30000);
+            setTimeout(UpdateBlock, 60000);
         });
 
     }
@@ -17,6 +17,7 @@
 </script>
 
 <h2>События</h2>
+<p>Новый события появляются автоматически. Обновление происходит раз в минуту.</p>
 <div class="common-div">
     <div class="common-div-left">
         <h3 >Новые</h3>
@@ -25,29 +26,38 @@
         @using (Ajax.BeginForm("ShowEvents", "Event", new { showAll = true }, new AjaxOptions { UpdateTargetId = "new-events" }))
         {
             @Html.AntiForgeryToken()
-            <input type="submit" class="btn btn-default" style="margin-left:10px; margin-top:17px" value="Обновить" />
+            <input type="submit" class="btn btn-default" style="margin-left:15px; margin-top:15px" value="Обновить" />
         }
     </div>
 </div>
+
 @using (Html.BeginForm("EventsSeen", "Event"))
 {
     @Html.AntiForgeryToken()
     <div class="common-div" id="new-events">
-        @Html.Action("ShowEvents", "Event", new { showAll = true })    
+        <!--Html.Action("ShowEvents", "Event", new { showAll = true })-->
+
     </div>
     <input type="submit" class="btn-light-blue" value="Я в курсе" />
-    <input type="button" class="btn btn-default" value="Выделить все"/>
+
 }
+<div class="common-div-left">
+    @using (Html.BeginForm("EventsSeen", "Event", new { all = true }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" style="margin-top:15px" class="btn-green" value="Все просмотрены" />
+    }
+</div>
 <div class="common-div">
     <div class="common-div-left">
-        <h3 >Просмотренные</h3>
-        </div>
+        <h3>Просмотренные</h3>
+    </div>
     <div class="common-div-left">
-        @using (Ajax.BeginForm("ShowEvents", "Event", new { seen = true, count = 20 }, new AjaxOptions { UpdateTargetId = "old-events" }))
+        <!--using (Ajax.BeginForm("ShowEvents", "Event", new { seen = true, count = 20 }, new AjaxOptions { UpdateTargetId = "old-events" }))
         {
-            @Html.AntiForgeryToken()
-            <input type="submit" class="btn btn-default" style="margin-left: 10px; margin-top: 20px" value="Обновить" />
-        }
+            Html.AntiForgeryToken()
+            <input type="submit" class="btn-default" style="margin-left: 10px; margin-top: 20px" value="Обновить" />
+        }-->
     </div>
 </div>
 <div class="common-div" id="old-events">
@@ -56,5 +66,5 @@
 @using (Ajax.BeginForm("ShowEvents", "Event", new { seen = true, showAll = true }, new AjaxOptions { UpdateTargetId = "old-events" }))
 {
     @Html.AntiForgeryToken()
-    <input type="submit" class="btn-green"  value="Показать все" />
+    <input type="submit" class="btn-green" value="Показать все" />
 }

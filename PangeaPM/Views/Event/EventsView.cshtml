@@ -6,11 +6,24 @@
 }
 else
 { 
+    <!--script type="text/javascript">
+    function SelectAll() {
+        $('#mainChbx').click({
+            asd: Math.random() // что б IE не кешировал
+        }, function () {
+            setTimeout(UpdateBlock, 30000);
+        });
+
+    }
+    $(document).ready(function () {
+        UpdateBlock()
+    });
+</script  -->
     <table class="table">
         <tr>
             @if (ViewBag.IsNewEvents !=null && ViewBag.IsNewEvents)
             {
-                <th></th>
+                <th><input type="checkbox" value="mainChbx" class="checkbox-inline" id="mainChbx"/></th>
             }
             <th>
                 @Html.DisplayNameFor(model => model.Date)
