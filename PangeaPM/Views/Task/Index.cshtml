@@ -14,7 +14,7 @@
 { 
     <p class="page-path"><a class="page-path" href="~/Project/Details/@ViewBag.ProjectId">@ViewBag.ProjectName</a>/<a class="page-path" href="~/Stage/Details/@ViewBag.StageId">@ViewBag.StageName</a>/<a class="page-path" href="~/Partition/Details/@ViewBag.PartitionId">@ViewBag.PartitionName</a>/</p>
         <h2>Задания раздела "@ViewBag.PartitionName" стадии "@ViewBag.StageName" проекта <b>@ViewBag.ProjectName</b></h2>
-    if (Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор") || User.IsInRole("Руководитель направления")))
+    if (!ViewBag.IsInArchive && Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор") || User.IsInRole("Руководитель направления")))
     { 
         <p>
             @Html.ActionLink("Создать задание", "Create", new { id = ViewBag.Id })
@@ -52,41 +52,9 @@ else
             <th>Дополнительно</th>
         </tr>
 
-        @foreach (var item in Model)
-{
-    if (item.IsFinish)
-    {
-        <tr id="task-@item.Id.ToString()" class="row-common row-finish">
-            @Html.Action("Show", "Task", item)
-        </tr>
-    }
-    else
-    {
-        if (item.DeadLine <= DateTime.Now)
+        @foreach (var item in Model.ToList())
         {
-            <tr id="task-@item.Id.ToString()" class="row-common row-deadline">
-                @Html.Action("Show", "Task", item)
-            </tr>
-        }
-        else
-        {
-            if ((item.DeadLine - DateTime.Now).Days < 7)
-            {
-                <tr id="task-@item.Id.ToString()" class="row-common row-danger">
-                    @Html.Action("Show", "Task", item)
-                </tr>
-            }
-            else
-            {
-                        <tr id="task-@item.Id.ToString()">
-                        @Html.Action("Show", "Task", item)
-                        </tr>
-                    }
-                }
-            }
-
-
-
+            @Html.Action("ShowRow", "Task", item)
         }
 
     </table>

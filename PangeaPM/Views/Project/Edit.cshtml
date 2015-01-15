@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Name)
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>
@@ -38,29 +38,23 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DeadLine, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DeadLine)     
+                @(Html.Telerik().DateTimePicker().Name("DeadLine"))
+                <!--Html.TextBoxFor(model => model.DeadLine)     -->
                 @Html.ValidationMessageFor(model => model.DeadLine)           
             </div>
-        </div>        
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsFinish, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsFinish)
-            </div>
-        </div>
+        </div>      
 
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Comment)
+                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Comment)
             </div>
         </div>
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Управление стадиями проекта", "Index", "Stage", new { ProjectId = Model.Id})
+                <a href="~/Project?id=@Model.Id">Управление стадиями проекта</a>
             </div>
         </div>
 
@@ -73,5 +67,5 @@
 }
 
 <div>
-    @Html.ActionLink("Назад", "Index")
+    @Html.ActionLink("К списку проектов", "Index")
 </div>

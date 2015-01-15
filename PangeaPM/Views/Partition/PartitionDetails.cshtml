@@ -62,7 +62,7 @@
         Действия
     </dt>
     <dd id="actions">
-    @if (Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор") ))
+    @if (!Model.IsInArchive && Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор")))
     {
         if (!Model.IsFinish)
         {
@@ -84,7 +84,7 @@
     }
     else
     {
-        if (Model.Manager != null && !Model.IsFinish && Request.IsAuthenticated && User.Identity.Name == Model.Manager.UserName)
+        if (!Model.IsInArchive && Model.Manager != null && !Model.IsFinish && Request.IsAuthenticated && User.Identity.Name == Model.Manager.UserName)
         {
             if (!Model.IsPreFinish)
             {
@@ -113,7 +113,7 @@
     <dd>
         @foreach (var part in Model.Tasks)
         {
-            <a href="/Task/@part.Id">@part.Name</a><br />
+            <a href="/Task/Details/@part.Id">@part.Name</a><br />
         }
         <a href="/Task?id=@Model.Id">Просмотреть все</a>
     </dd>

@@ -21,21 +21,22 @@
         {
             if (User.Identity.Name == Model.User.UserName)
             {
+                <!--div class="btn">
+                    using (Ajax.BeginForm("EditView", "Comment", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "comment-" + Model.Id.ToString() }))
+                    {
+                        Html.AntiForgeryToken()
+                        <input type="submit" class="btn-light-blue" value="Редактировать" />
+                    }
+                </div-->
+            
                 <div class="btn">
-                    @using (Ajax.BeginForm("EditView", "Comment", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "comment-" + Model.Id.ToString() }))
+                    @using (Ajax.BeginForm("Delete", "Comment", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "comments" }))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="submit" class="btn-light-blue" value="Редактировать" />
+                        <input type="submit" class="btn-red" style="margin-left:10px" value="Удалить" />
                     }
                 </div>
             }
-            <div class="btn">
-                @using (Ajax.BeginForm("Delete", "Comment", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "comments" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <input type="submit" class="btn-red" style="margin-left:10px" value="Удалить" />
-                }
-            </div>
         }
 
     </div>

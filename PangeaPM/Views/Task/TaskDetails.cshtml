@@ -70,7 +70,7 @@
     </dt>
 
     <dd id="actions">
-            @if (Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор") || User.IsInRole("Руководитель направления")))
+            @if (!Model.IsInArchive && Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор") || User.IsInRole("Руководитель направления")))
             {
                 if (!Model.IsFinish)
                 {
@@ -92,7 +92,7 @@
             }
             else
             {
-                if (Model.Executor != null && !Model.IsFinish && Request.IsAuthenticated && User.IsInRole("Исполнитель") && User.Identity.Name == Model.Executor.UserName)
+                if (!Model.IsInArchive && Model.Executor != null && !Model.IsFinish && Request.IsAuthenticated && User.IsInRole("Исполнитель") && User.Identity.Name == Model.Executor.UserName)
                 {
                     if (!Model.IsPreFinish)
                     {

@@ -56,7 +56,8 @@
                 @Model.Manager.Surname @Model.Manager.Name @Model.Manager.Fathername (@Model.Manager.UserName)
             </dd>
         }
-
+@if(!Model.IsInArchive)
+{ 
     <dt>
         Действия
     </dt>
@@ -78,18 +79,24 @@
                     @Html.AntiForgeryToken()
                     <input type="submit" class="btn-red" style="margin:5px" value="Отменить завершение" />
                 }
+                using (Ajax.BeginForm("MakeArchive", "Project", new { id = Model.Id, details = true }, new AjaxOptions { UpdateTargetId = "task-"+Model.Id.ToString() }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" class="btn-light-blue" style="margin:5px" value="В архив" />
+                }
             }
 
         }
             
     </dd>
+}
     <dt>
         Стадии
     </dt>
     <dd>
         @foreach (var item in Model.Stages)
         {
-            <a href="~/Task/Details/@item.Id.ToString()">@item.Name</a><br/>            
+            <a href="~/Stage/Details/@item.Id.ToString()">@item.Name</a><br/>            
         }
         <a href="~/Stage?id=@Model.Id.ToString()">Управление стадиями</a>
             

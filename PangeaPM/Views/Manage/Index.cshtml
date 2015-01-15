@@ -1,22 +1,68 @@
-﻿@model ProjectsManagment.Models.IndexViewModel
+﻿@model ProjectsManagment.Models.ApplicationUser
 @{
     ViewBag.Title = "Управление аккаунтом";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div class="row">
-    <div class="col-md-8">
-        <p>
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Изменить пароль", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Установить пароль", "SetPassword")
-            }
-        </p>
-        
-    </div>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fathername)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fathername)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>
+    </dl>
 </div>
+<hr />
+<h4>Роли</h4>
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <p>У вас нет ролей</p>
+}
+else
+{ 
+<ul>
+    @foreach (var item in ViewBag.RoleNames)
+    {
+        <li>@item</li>            
+    }
+</ul>
+}
+<!--p>
+    if (Request.IsAuthenticated && User.Identity.Name == Model.UserName)
+    {
+        Html.ActionLink("Редактировать", "Edit", "UsersAdmin", new { id = Model.Id }) <br />
+    }
+</p  -->
+<p>
+    @Html.ActionLink("Изменить пароль", "ChangePassword")
+       
+</p>
+

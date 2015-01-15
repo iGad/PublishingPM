@@ -35,41 +35,12 @@
             </th>
 
             <th>@Html.DisplayNameFor(model => model.Stages)</th>
-            <th></th>
+            <th>Действия</th>
         </tr>
 
 @foreach (var item in Model.ToList())
-{
-    if (item.IsFinish)
-    {
-        <tr id="task-@item.Id.ToString()" class="row-common row-finish">
-            @Html.Action("Show", "Project", item)
-        </tr>
-    }
-    else
-    {
-        if (item.DeadLine <= DateTime.Now)
-        {
-            <tr id="task-@item.Id.ToString()" class="row-common row-deadline">
-                @Html.Action("Show", "Project", item)
-            </tr>
-        }
-        else
-        {
-            if ((item.DeadLine - DateTime.Now).Days < 7)
-            {
-                <tr id="task-@item.Id.ToString()" class="row-common row-danger">
-                    @Html.Action("Show", "Project", item)
-                </tr>
-            }
-            else
-            {
-                <tr id="task-@item.Id.ToString()">
-                    @Html.Action("Show", "Project", item)
-                </tr>
-            }
-        }
-    }
+{ 
+    @Html.Action("ShowRow", "Project", item)
 }
 
     </table>

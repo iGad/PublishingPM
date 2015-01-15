@@ -8,6 +8,10 @@ else
 { 
     <table class="table">
         <tr>
+            @if (ViewBag.IsNewEvents !=null && ViewBag.IsNewEvents)
+            {
+                <th></th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
@@ -21,6 +25,10 @@ else
 
     @foreach (var item in Model.ToList()) {
         <tr>
+            @if (ViewBag.IsNewEvents != null && ViewBag.IsNewEvents)
+            {
+                <td><input type="checkbox" name="SelectedEvent" value="@item.Id" class="checkbox-inline" /></td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Date)            
             </td>

@@ -1,0 +1,5 @@
+﻿@model ProjectsManagment.Models.Project
+
+<tr id="task-@Model.Id.ToString()" class="@(Model.IsInArchive ? "row-archive" : (Model.IsFinish ? "row-finish" : (Model.DeadLine <= DateTime.Now ? "row-deadline" : ((Model.DeadLine - DateTime.Now).Days < 7 ? "row-danger" : ""))))">
+    @Html.Action("Show", Model)
+</tr>

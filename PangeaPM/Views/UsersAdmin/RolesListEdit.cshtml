@@ -1,0 +1,24 @@
+﻿@if(Request.IsAuthenticated && User.IsInRole("Директор"))
+{ 
+    <div id="roles-@ViewBag.UserId"></div>
+    using (Ajax.BeginForm("ChangeRoles", "UsersAdmin", new { id = ViewBag.UserId }, new AjaxOptions { UpdateTargetId = "roles-"+ViewBag.UserId }))
+    {
+        @Html.AntiForgeryToken()
+        foreach (var item in ViewBag.RolesList)
+        {
+            <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+            <label>@item.Value</label><!--Html.Label(item.Value, new { class = "control-label" })--><br/>
+        }
+        <input type="submit" value="Применить" class="btn-green" />
+    }
+}
+else
+{
+    foreach (var item in ViewBag.RolesList)
+    {
+        if(item.Selected)
+        {
+            <label class="control-label">@item.Value</label> <!--Html.Label(item.Value, new { class = "control-label" })--><br/>
+        }      
+    }
+}

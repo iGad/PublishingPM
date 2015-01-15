@@ -2,6 +2,20 @@
     ViewBag.Title = "События";
 }
 
+<script type="text/javascript">
+    function UpdateBlock() {
+        $('#new-events').load(("@(Url.Action("ShowEvents", "Event", new { showAll = true }))"), {
+            asd: Math.random() // что б IE не кешировал
+        }, function () {
+            setTimeout(UpdateBlock, 30000);
+        });
+
+    }
+    $(document).ready(function () {
+        UpdateBlock()
+    });
+</script>
+
 <h2>События</h2>
 <div class="common-div">
     <div class="common-div-left">
@@ -11,18 +25,18 @@
         @using (Ajax.BeginForm("ShowEvents", "Event", new { showAll = true }, new AjaxOptions { UpdateTargetId = "new-events" }))
         {
             @Html.AntiForgeryToken()
-            <input type="submit" class="btn-default" style="margin-left:10px; margin-top:17px" value="Обновить" />
+            <input type="submit" class="btn btn-default" style="margin-left:10px; margin-top:17px" value="Обновить" />
         }
     </div>
-</div>
-<div class="common-div" id="new-events">
-    @Html.Action("ShowEvents", "Event", new { showAll = true })
-    
 </div>
 @using (Html.BeginForm("EventsSeen", "Event"))
 {
     @Html.AntiForgeryToken()
+    <div class="common-div" id="new-events">
+        @Html.Action("ShowEvents", "Event", new { showAll = true })    
+    </div>
     <input type="submit" class="btn-light-blue" value="Я в курсе" />
+    <input type="button" class="btn btn-default" value="Выделить все"/>
 }
 <div class="common-div">
     <div class="common-div-left">
@@ -32,7 +46,7 @@
         @using (Ajax.BeginForm("ShowEvents", "Event", new { seen = true, count = 20 }, new AjaxOptions { UpdateTargetId = "old-events" }))
         {
             @Html.AntiForgeryToken()
-            <input type="submit" class="btn-default" style="margin-left: 10px; margin-top: 20px" value="Обновить" />
+            <input type="submit" class="btn btn-default" style="margin-left: 10px; margin-top: 20px" value="Обновить" />
         }
     </div>
 </div>

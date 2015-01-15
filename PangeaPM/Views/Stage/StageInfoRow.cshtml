@@ -1,0 +1,5 @@
+﻿@model ProjectsManagment.Models.Stage
+
+<tr id="task-@Model.Id.ToString()" class="@(Model.IsInArchive ? "row-archive" : (Model.IsFinish ? "row-finish" :  ""))">
+    @Html.Action("Show", Model)
+</tr>

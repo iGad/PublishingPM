@@ -59,7 +59,8 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
+            <!--Html.TextBoxFor(m => m.Birthday, new { class = "form-control" })-->
+            @(Html.Telerik().DatePicker().Name("Birthday"))
             @Html.ValidationMessageFor(m => m.Birthday)
         </div>
     </div>

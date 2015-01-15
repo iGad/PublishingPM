@@ -1,9 +1,6 @@
 ﻿@model ProjectsManagment.Models.ProjectView
 @{
     ViewBag.Title = "Создание проекта";
-    //Model.Creator = ViewBag.User;
-    //Model.CreationDate = DateTime.Now.Date;
-    //|Model.IsFinish = Model.IsPreFinish = false;
 }
 
 <h2>@ViewBag.Title</h2>
@@ -15,14 +12,10 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
-        
-       
-        
-        
         <div class="form-group">
             @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)                
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })                
                 @Html.ValidationMessageFor(model => model.Name)
                 
             </div>
@@ -31,18 +24,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)   
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })   
                 @Html.ValidationMessageFor(model => model.Description)             
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.DeadLine, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-              
-                @Html.EditorFor(model => model.DeadLine)
-                @Html.ValidationMessageFor(model => model.DeadLine)             
-            </div>
-        </div>
+        
         <div class="form-group">
             @Html.LabelFor(model => model.UserId, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -50,7 +36,14 @@
                 @Html.ValidationMessageFor(model => model.UserId) 
             </div>
         </div>
-        
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeadLine, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @(Html.Telerik().DateTimePicker().Name("DeadLine"))
+                <!--Html.TextBoxFor(model => model.DeadLine)-->
+                @Html.ValidationMessageFor(model => model.DeadLine)
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

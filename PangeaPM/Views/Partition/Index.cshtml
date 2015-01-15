@@ -14,7 +14,7 @@
 { 
     <p class="page-path"><a class="page-path" href="~/Project/Details/@ViewBag.ProjectId">@ViewBag.ProjectName</a>/<a class="page-path" href="~/Stage/Details/@ViewBag.StageId">@ViewBag.StageName</a>/</p>
     <h2>Разделы стадии "@ViewBag.StageName" проекта <b>@ViewBag.ProjectName</b></h2>
-    if (Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор")))
+    if (!ViewBag.IsInArchive && Request.IsAuthenticated && (User.IsInRole("Главный инженер проекта") || User.IsInRole("Директор")))
     {
         <p>
             @Html.ActionLink("Создать новый раздел", "Create", new { id = ViewBag.Id })
@@ -54,38 +54,10 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.ToList())
         {
-            if (item.IsFinish)
-            {
-                <tr id="task-@item.Id.ToString()" class="row-common row-finish">
-                    @Html.Action("Show", "Partition", item)
-                </tr>
-            }
-            else
-            {
-                if (item.DeadLine <= DateTime.Now)
-                {
-                    <tr id="task-@item.Id.ToString()" class="row-common row-deadline">
-                        @Html.Action("Show", "Partition", item)
-                    </tr>
-                }
-                else
-                {
-                    if ((item.DeadLine - DateTime.Now).Days < 7)
-                    {
-                        <tr id="task-@item.Id.ToString()" class="row-common row-danger">
-                            @Html.Action("Show", "Partition", item)
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr id="task-@item.Id.ToString()">
-                            @Html.Action("Show", "Partition", item)
-                        </tr>
-                    }
-                }
-            }
+             @Html.Action("ShowRow", "Partition", item)
+                        
         }
 
     </table>
